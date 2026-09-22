@@ -1,0 +1,63 @@
+{
+  "name": "FitForMe — pasti e allenamento",
+  "short_name": "FitForMe",
+  "description": "Generatore di pasti, scheda di allenamento con modalità palestra, peso e misure. Funziona senza rete.",
+  "lang": "it",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D1411",
+  "theme_color": "#0D1411",
+  "categories": [
+    "health",
+    "fitness",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "icone/icona-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icone/icona-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icone/icona-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "In palestra",
+      "short_name": "Palestra",
+      "description": "Apri la seduta del giorno",
+      "url": "./index.html#palestra",
+      "icons": [
+        {
+          "src": "icone/icona-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Peso di oggi",
+      "short_name": "Peso",
+      "url": "./index.html#corpo",
+      "icons": [
+        {
+          "src": "icone/icona-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

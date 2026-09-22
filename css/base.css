@@ -1,0 +1,182 @@
+/* Sistema di design.
+
+   Il tema scuro è quello predefinito: l'app si usa la mattina presto e in
+   sala pesi, dove uno schermo chiaro è una torcia in faccia. Il chiaro resta
+   disponibile dalle preferenze.
+
+   Le superfici sono a livelli — sfondo, scheda, campo — invece che un unico
+   foglio con delle righe sopra: è quello che fa la differenza fra una pagina
+   web e un'app. */
+
+@font-face{
+  font-family:'Fraunces';
+  src:url('../font/fraunces-var-latin.woff2') format('woff2-variations');
+  font-weight:100 900; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Archivo';
+  src:url('../font/archivo-var-latin.woff2') format('woff2-variations');
+  font-weight:100 900; font-style:normal; font-display:swap;
+}
+
+/* ---------- scuro: il predefinito ---------- */
+:root{
+  --bg:#0D1411;              /* la pagina */
+  --superficie:#16201B;      /* la scheda */
+  --superficie-2:#1F2C26;    /* campi e blocchi dentro la scheda */
+  --bg-alt:#1F2C26;
+
+  --ink:#ECEFEA;
+  --ink-soft:#97A69E;
+  --sub:#8FB8A4;
+
+  --brand:#2FD08F;           /* l'azione principale */
+  --brand-hover:#49DDA0;
+  --on-brand:#06130E;
+  --accent-text:#55DBA6;     /* etichette e accenti */
+  --line:#55DBA6;
+  --ocra:#E9B75F;
+
+  --ok-bg:rgba(47,208,143,.16);  --ok-fg:#6FE3B0;
+  --low-bg:rgba(255,138,112,.16); --low-fg:#FF9E87;
+
+  --hair:rgba(236,239,234,.10);
+  --hair-strong:rgba(236,239,234,.24);
+  --ombra:0 1px 2px rgba(0,0,0,.45), 0 10px 28px rgba(0,0,0,.30);
+  --ombra-alta:0 2px 6px rgba(0,0,0,.5), 0 18px 44px rgba(0,0,0,.42);
+
+  --r-s:10px; --r-m:16px; --r-l:24px; --r-pill:999px;
+  --barra:calc(58px + env(safe-area-inset-bottom,0px));
+
+  color-scheme:dark;
+  box-sizing:border-box;
+}
+
+/* ---------- chiaro ---------- */
+@media (prefers-color-scheme:light){
+  :root[data-theme="auto"]{
+    --bg:#F3EFE4; --superficie:#FCFAF3; --superficie-2:#EDE7D8; --bg-alt:#EDE7D8;
+    --ink:#131E19; --ink-soft:#5D6B63; --sub:#3F6B57;
+    --brand:#12432F; --brand-hover:#1B5C42; --on-brand:#F4F8F5;
+    --accent-text:#16724F; --line:#12432F; --ocra:#A9742A;
+    --ok-bg:#D8EEE2; --ok-fg:#0E5436;
+    --low-bg:#FADFD6; --low-fg:#95301C;
+    --hair:rgba(19,30,25,.10); --hair-strong:rgba(19,30,25,.22);
+    --ombra:0 1px 2px rgba(19,30,25,.06), 0 10px 28px rgba(19,30,25,.07);
+    --ombra-alta:0 2px 6px rgba(19,30,25,.09), 0 18px 44px rgba(19,30,25,.12);
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F3EFE4; --superficie:#FCFAF3; --superficie-2:#EDE7D8; --bg-alt:#EDE7D8;
+  --ink:#131E19; --ink-soft:#5D6B63; --sub:#3F6B57;
+  --brand:#12432F; --brand-hover:#1B5C42; --on-brand:#F4F8F5;
+  --accent-text:#16724F; --line:#12432F; --ocra:#A9742A;
+  --ok-bg:#D8EEE2; --ok-fg:#0E5436;
+  --low-bg:#FADFD6; --low-fg:#95301C;
+  --hair:rgba(19,30,25,.10); --hair-strong:rgba(19,30,25,.22);
+  --ombra:0 1px 2px rgba(19,30,25,.06), 0 10px 28px rgba(19,30,25,.07);
+  --ombra-alta:0 2px 6px rgba(19,30,25,.09), 0 18px 44px rgba(19,30,25,.12);
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:15.5px; line-height:1.5;
+  overscroll-behavior-y:contain;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;background:none;border:none}
+:focus-visible{outline:3px solid var(--ocra);outline-offset:2px}
+::selection{background:var(--brand);color:var(--on-brand)}
+
+/* ================= guscio dell'app ================= */
+
+.wrap{max-width:620px;margin:0 auto;padding:0 16px}
+
+/* --- intestazione: si riduce quando scorri --- */
+.testa{
+  position:sticky;top:0;z-index:30;
+  background:var(--bg);
+  padding-top:env(safe-area-inset-top,0px);
+  transition:box-shadow .2s, background .2s;
+}
+.testa.staccata{box-shadow:0 1px 0 var(--hair), var(--ombra)}
+.testa-riga{display:flex;align-items:center;gap:10px;padding:10px 0 12px;min-height:56px}
+.testa h1{
+  flex:1;min-width:0;
+  font-family:'Fraunces',Georgia,serif;font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(25px,7vw,32px);line-height:1.05;
+  transition:font-size .2s;
+}
+.testa.staccata h1{font-size:19px}
+.testa .sott{
+  font-size:13px;color:var(--ink-soft);padding-bottom:12px;
+  max-height:40px;overflow:hidden;transition:max-height .2s,opacity .2s,padding .2s;
+}
+.testa.staccata .sott{max-height:0;opacity:0;padding-bottom:0}
+.testa-azione{
+  flex:0 0 auto;width:42px;height:42px;border-radius:var(--r-pill);
+  display:grid;place-items:center;color:var(--ink-soft);
+}
+.testa-azione:active{background:var(--superficie-2)}
+.testa-azione svg{width:22px;height:22px}
+
+/* Lo spazio in fondo deve stare su «main.wrap», non su «main»: la regola
+   .wrap ha specificità maggiore e con `padding:0 16px` azzererebbe questo.
+   L'altezza vera della barra la misura app.js e la scrive in --barra, così
+   regge anche le etichette che vanno a capo sugli schermi stretti. */
+main{padding-top:6px}
+main.wrap{padding-bottom:calc(var(--barra) + 24px)}
+[role="tabpanel"][hidden]{display:none}
+
+/* --- barra in basso: dove arriva il pollice --- */
+.barra{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  display:flex;
+  background:var(--superficie);
+  border-top:1px solid var(--hair);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  backdrop-filter:saturate(140%) blur(12px);
+}
+.barra button{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 2px 7px;color:var(--ink-soft);font-size:10.5px;font-weight:600;
+  letter-spacing:.01em;min-height:56px;justify-content:center;
+  transition:color .15s;
+}
+.barra button svg{width:23px;height:23px;stroke-width:1.9}
+.barra button[aria-selected="true"]{color:var(--brand)}
+.barra button[aria-selected="true"] .punto{opacity:1;transform:scale(1)}
+.punto{
+  position:absolute;top:4px;width:4px;height:4px;border-radius:50%;
+  background:var(--brand);opacity:0;transform:scale(.4);transition:.2s;
+}
+.barra button{position:relative}
+
+/* --- transizione fra le schede --- */
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.anima{animation:entra .22s cubic-bezier(.2,.7,.3,1)}
+
+/* ================= tipografia condivisa ================= */
+
+section{margin-bottom:26px}
+.stit{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:-.01em;
+  margin-bottom:12px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+}
+.stit small{font-family:'Archivo',sans-serif;font-weight:500;font-size:12px;color:var(--ink-soft)}
+.glab{font-size:11px;font-weight:700;color:var(--accent-text);letter-spacing:.07em;
+      text-transform:uppercase;margin:16px 0 8px}
+.glab:first-child{margin-top:0}
+.hide{display:none}
+
+@media print{
+  .testa,.barra,.cta,.azioni,.swap{display:none}
+  body,html{background:#fff;color:#000}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

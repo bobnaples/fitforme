@@ -1,0 +1,9 @@
+# I miei dati: pesate, misure, storico delle sedute.
+# Stanno qui sul Mac e si caricano nell'app da Dati → Importa.
+miei-dati/
+
+# Il tracker della trainer: contiene il suo nome e tutto lo storico.
+*.xlsx
+
+# macOS
+.DS_Store

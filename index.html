@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FitForMe</title>
+<meta name="description" content="Pasti, allenamento, peso e misure. Funziona senza rete.">
+<meta name="theme-color" content="#0D1411">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icone/icona-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icone/apple-touch-icon.png">
+<link rel="preload" href="font/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/fraunces-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/componenti.css">
+<link rel="stylesheet" href="css/oggi.css">
+<link rel="stylesheet" href="css/allenamento.css">
+<link rel="stylesheet" href="css/palestra.css">
+</head>
+<body>
+
+<header class="testa" id="testa">
+  <div class="wrap">
+    <div class="testa-riga">
+      <h1 id="titolo">Oggi</h1>
+      <button class="testa-azione" id="btn-tema" type="button" aria-label="Cambia tema"></button>
+    </div>
+    <p class="sott" id="sottotitolo"></p>
+  </div>
+</header>
+
+<main class="wrap" id="principale">
+  <div role="tabpanel" id="p-oggi"        aria-labelledby="tab-oggi"></div>
+  <div role="tabpanel" id="p-pasti"       aria-labelledby="tab-pasti" hidden></div>
+  <div role="tabpanel" id="p-allenamento" aria-labelledby="tab-allenamento" hidden></div>
+  <div role="tabpanel" id="p-corpo"       aria-labelledby="tab-corpo" hidden></div>
+  <div role="tabpanel" id="p-dati"        aria-labelledby="tab-dati" hidden></div>
+</main>
+
+<nav class="barra" role="tablist" aria-label="Moduli" id="barra"></nav>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

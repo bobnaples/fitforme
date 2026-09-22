@@ -1,0 +1,140 @@
+/* Modulo allenamento: inserimento, grafici, editor delle schede.
+   I campi sono dimensionati per essere toccati con una mano sola e con le
+   dita sudate, non per stare stretti in pagina. */
+
+/* ---------- campo numerico con − / + ---------- */
+.passo{display:inline-flex;align-items:stretch;background:var(--superficie-2);
+       border-radius:var(--r-m);overflow:hidden;flex:0 0 auto;min-height:46px}
+.passo .valore{
+  width:58px;border:none;background:transparent;color:var(--ink);text-align:center;
+  font-family:'Archivo',sans-serif;font-size:16px;font-weight:700;
+  font-variant-numeric:tabular-nums;padding:6px 2px;
+}
+.passo .valore:focus{outline:none;background:var(--hair)}
+.passo-btn{
+  width:44px;color:var(--accent-text);font-size:20px;font-weight:700;line-height:1;
+  display:grid;place-items:center;transition:background .12s, transform .1s;
+}
+.passo-btn:active{background:var(--brand);color:var(--on-brand);transform:scale(.94)}
+.passo .unita{align-self:center;padding:0 10px;font-size:12.5px;color:var(--ink-soft)}
+.passo.stretto .valore{width:46px}
+.passo.stretto .passo-btn{width:38px;font-size:18px}
+.passo.grande .valore{font-size:36px;padding:14px 4px}
+.passo.grande .passo-btn{width:70px;font-size:30px}
+
+/* ---------- scelta della seduta ---------- */
+.scelta-scheda{display:flex;gap:9px}
+.scheda-btn{
+  flex:1;background:var(--superficie-2);color:var(--ink);border-radius:var(--r-m);
+  padding:16px 6px;display:grid;gap:4px;place-items:center;transition:transform .12s;
+}
+.scheda-btn:active{transform:scale(.97);background:var(--brand);color:var(--on-brand)}
+.scheda-btn b{font-family:'Fraunces',Georgia,serif;font-size:27px;font-weight:900;line-height:1}
+.scheda-btn small{font-size:11px;font-variant-numeric:tabular-nums;opacity:.75}
+
+/* ---------- elenco delle sedute ---------- */
+.riga-seduta{
+  width:100%;display:flex;align-items:center;gap:10px;text-align:left;
+  background:var(--superficie-2);border-radius:var(--r-m);padding:13px 15px;
+  color:var(--ink);font-size:14px;margin-bottom:8px;min-height:52px;transition:transform .12s;
+}
+.riga-seduta:active{transform:scale(.985)}
+.rs-data{font-variant-numeric:tabular-nums;font-weight:700;flex:0 0 auto}
+.rs-scheda{
+  flex:0 0 auto;background:var(--brand);color:var(--on-brand);border-radius:var(--r-pill);
+  font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:13px;padding:2px 11px;
+}
+.rs-info{flex:1;color:var(--ink-soft);font-size:12.5px;font-variant-numeric:tabular-nums}
+
+/* ---------- inserimento ---------- */
+.riga-form{display:flex;gap:9px;align-items:center;margin-bottom:16px}
+.es-card{background:var(--superficie);border-radius:var(--r-l);padding:16px;margin-bottom:12px;
+         box-shadow:var(--ombra)}
+.es-testa{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.es-testa h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:17px}
+.es-proto{font-size:10.5px;font-weight:700;color:var(--accent-text);letter-spacing:.05em;
+          text-transform:uppercase;white-space:nowrap}
+.es-ultima{font-size:12.5px;color:var(--ink-soft);margin:4px 0 12px;font-variant-numeric:tabular-nums}
+.es-schema{font-size:12.5px;color:var(--ink-soft);margin-bottom:12px}
+
+.riga-carico{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.riga-carico .lab{font-size:11px;font-weight:700;color:var(--accent-text);letter-spacing:.05em;
+                  flex:0 0 58px;text-transform:uppercase}
+.drop-lab{font-size:12.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+.serie{display:flex;flex-direction:column;gap:8px}
+.serie-riga{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.serie-num{flex:0 0 26px;font-size:12px;font-weight:700;color:var(--accent-text);font-variant-numeric:tabular-nums}
+.serie-sep{font-size:12px;color:var(--ink-soft)}
+
+.giro{margin-bottom:14px}
+/* su schermo da telefono le caselle del giro stanno una per riga: a due
+   colonne i −/+ si sovrappongono e diventano intoccabili */
+.iso-griglia{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+@media (min-width:520px){.iso-griglia{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 12px;margin-left:68px}}
+.iso-cella{display:flex;align-items:center;gap:8px;min-width:0}
+.iso-lab{flex:0 0 58px;font-size:12px;font-weight:700;color:var(--accent-text);font-variant-numeric:tabular-nums}
+
+.esito{margin-top:14px;padding:12px 14px;border-radius:var(--r-m);
+       background:var(--superficie-2);color:var(--ink-soft);font-size:13.5px}
+.esito.aumenta{background:var(--ok-bg);color:var(--ok-fg);font-weight:600}
+.esito.diminuisci{background:var(--low-bg);color:var(--low-fg);font-weight:600}
+
+/* ---------- grafici ---------- */
+.delta{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px;font-variant-numeric:tabular-nums}
+.grafico{margin:0 0 20px}
+.grafico:last-child{margin-bottom:0}
+.grafico .lettura{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+                  padding-bottom:8px;margin-bottom:8px}
+.grafico .eti{font-size:10.5px;font-weight:700;color:var(--accent-text);letter-spacing:.07em;text-transform:uppercase}
+.grafico .val{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.grafico .tela{width:100%;height:auto;display:block;touch-action:pan-y}
+.grafico .griglia{stroke:var(--hair);stroke-width:1}
+.grafico .segno{stroke:var(--hair-strong);stroke-width:1}
+.grafico .linea{fill:none;stroke:var(--brand);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.grafico .punto{fill:var(--brand);stroke:var(--superficie);stroke-width:2}
+.grafico .mirino{stroke:var(--ocra);stroke-width:1.5}
+.grafico .tacca{fill:var(--ink-soft);font-size:9px;font-family:'Archivo',sans-serif;font-variant-numeric:tabular-nums}
+.grafico .valore{fill:var(--ink);font-size:10px;font-weight:700;font-family:'Archivo',sans-serif;font-variant-numeric:tabular-nums}
+
+/* ---------- editor delle schede ---------- */
+.blocco-scheda{margin-bottom:20px}
+.voce-riga{display:flex;align-items:stretch;gap:8px;background:var(--superficie-2);
+           border-radius:var(--r-m);margin-bottom:7px;overflow:hidden}
+.voce-frecce{display:flex;flex-direction:column;flex:0 0 auto}
+.frec{width:38px;flex:1;color:var(--accent-text);font-size:14px;line-height:1;
+      display:grid;place-items:center;min-height:26px;transition:background .12s}
+.frec[disabled]{opacity:.25}
+.frec:not([disabled]):active{background:var(--brand);color:var(--on-brand)}
+.voce-corpo{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;align-items:flex-start;
+            text-align:left;color:var(--ink);padding:11px 4px;min-height:52px;justify-content:center}
+.voce-nome{font-size:15px;font-weight:600}
+.voce-det{font-size:11.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.aggiungi{width:100%;border:1.5px dashed var(--hair-strong);border-radius:var(--r-m);
+          color:var(--accent-text);padding:13px;font-size:13.5px;font-weight:600;
+          margin-top:8px;min-height:46px}
+.aggiungi:active{background:var(--superficie-2)}
+
+.editor-voce{background:var(--superficie-2);border-radius:var(--r-m);padding:16px;margin:2px 0 10px}
+.editor-voce .campo-testo,.editor-voce .selettore{background:var(--superficie)}
+.riga-voce{width:100%;display:flex;align-items:baseline;gap:6px;text-align:left;
+           color:var(--ink);font-size:15px;padding:10px 2px;min-height:44px}
+.riga-voce .n{flex:0 1 auto}
+.riga-voce .leader{flex:1 1 auto;border-bottom:1px dotted var(--hair-strong);transform:translateY(-4px);min-width:10px}
+.riga-voce .q{flex:0 0 auto;font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+.proto-riga{display:flex;align-items:center;gap:10px;background:var(--superficie-2);
+            border-radius:var(--r-m);padding:12px 14px;margin-bottom:7px;min-height:52px}
+.proto-testo{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.proto-nome{font-size:15px;font-weight:600}
+.proto-desc{font-size:12px;color:var(--ink-soft)}
+.proto-fisso{font-size:11px;color:var(--ink-soft);flex:0 0 auto}
+.proto-riga .frec{flex:0 0 auto;min-height:38px;width:42px;font-size:15px;border-radius:var(--r-s)}
+
+.forma-proto{background:var(--superficie-2);border-radius:var(--r-m);padding:16px;margin-top:12px}
+.forma-proto .campo-testo,.forma-proto .selettore{background:var(--superficie)}
+.campo.sw{justify-content:flex-start}
+.campo.sw input[type="checkbox"]{width:28px;height:28px;accent-color:var(--brand);flex:0 0 auto}
+.anteprima{background:var(--superficie);border-radius:var(--r-s);padding:12px 14px;margin-top:14px}
+.archivio-lista{margin-bottom:10px}
+.recuperi-elenco{margin-top:6px}
